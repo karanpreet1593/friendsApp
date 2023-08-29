@@ -1,13 +1,28 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
+import './index.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter } from 'react-router-dom';
+import { UserProvider } from './context/user.context';
+import { PostsProvider } from './context/posts.context';
+import { UsersListProvider } from './context/usersList.context';
+import { ChatContextProvider } from './context/chat.context';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <UserProvider>
+        <PostsProvider>
+          <UsersListProvider>
+            <ChatContextProvider>
+            <App />
+            </ChatContextProvider>
+          </UsersListProvider>
+        </PostsProvider>
+      </UserProvider>
+    </BrowserRouter>
   </React.StrictMode>
 );
 

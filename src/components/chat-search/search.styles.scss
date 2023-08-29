@@ -1,0 +1,42 @@
+.search-container {
+
+    .searchForm {
+      padding: 10px;
+
+    }
+    .userChat{
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-radius: 10px;
+      background-color: white;
+      cursor: pointer;
+
+      &:hover {
+          background-color: rgb(229, 229, 229);
+      }
+
+      img {
+          height: 70px;
+          width: 70px;
+          border-radius: 50%;
+          object-fit: cover;
+      }
+
+      .userChatInfo{
+          span {
+              font-size: 18px;
+              font-weight: 500;
+              color: black;
+            }
+  
+          p{
+              font-size: 14px;
+              color: black;
+          }
+      }
+  }
+  }
+
+

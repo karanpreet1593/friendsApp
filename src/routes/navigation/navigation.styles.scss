@@ -1,0 +1,52 @@
+.navigation-container {
+    height: 50px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    background-color: white;
+    box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2);
+    border-bottom: 2px solid lightgray;
+  
+    .logo-container {
+      height: 100%;
+      width: 70px;
+      padding: 1px 10px;
+    }
+  
+    .nav-links-container {
+      padding-right: 10px;
+      width: 20%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 10px;
+
+      .nav {
+        color: black;
+        transition: all .2s ease-in-out; 
+
+        &:hover {
+          transform: scale(1.1); 
+        }
+      }
+  
+      .nav-link {
+        border-radius: 50%;
+        background-color: rgb(246, 246, 246);
+        padding: 2px 6px 2px 4px;
+        cursor: pointer;
+        transition: all .2s ease-in-out; 
+
+        &:hover {
+          transform: scale(1.1); 
+        }
+      }
+      .profile-image {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 2px solid rgb(246, 246, 246)
+      }
+    }
+  }
