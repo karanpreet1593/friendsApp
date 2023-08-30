@@ -15,6 +15,7 @@ import {
     collection,
     query,
     getDocs,
+    onSnapshot
 } from 'firebase/firestore'
 import { getStorage } from "firebase/storage";
 
@@ -28,8 +29,6 @@ const firebaseConfig = {
     measurementId: "G-LPHXEYEZ1E"
   };
   
-  // Initialize Firebase
-  // eslint-disable-next-line no-unused-vars
   const firebaseApp = initializeApp(firebaseConfig);
 
   export const auth = getAuth()
@@ -116,12 +115,13 @@ const firebaseConfig = {
   export const getPostsAndDocuments = async () => {
     const collectionRef = collection(db, 'posts');
     const q = query(collectionRef);
-    const arr = []
-  
+    let arr = []
+
     const querySnapshot = await getDocs(q);
-     querySnapshot.docs.map((docSnapshot) => {
-      arr.push(docSnapshot.data())
-    })
+    querySnapshot.docs.map((docSnapshot) => {
+     arr.push(docSnapshot.data())
+   })
+  
     return arr;
   };
 

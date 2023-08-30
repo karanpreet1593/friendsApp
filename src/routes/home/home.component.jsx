@@ -1,17 +1,18 @@
 import './home.styles.scss'
 import { useState, useEffect } from 'react';
-import FeedsContainer from '../../components/feedsContainer/feedsContainer.component';
 import PostDialogue from '../../components/post-dialogue/post-dialogue.components';
 import DialogTitle from "@mui/material/DialogTitle";
 import Dialog from "@mui/material/Dialog";
-import { height } from "@mui/system";
 import CreatePostDialog from '../../components/create-post-dialog/create-post-dialog.component';
 import { userContext } from "../../context/user.context";
+import { PostsContext } from '../../context/posts.context';
 import { useContext } from 'react'
 import ContactsList from '../../components/contacts-list/contacts-list-component';
+import Post from '../../components/post/post.component';
 
 const Home = () => {
     const {currentUser} = useContext(userContext)
+    const {postsArray} = useContext(PostsContext)
     const [openDialog, handleDisplay] = useState(false);
 
     const handleClose = () => {
@@ -42,7 +43,9 @@ const Home = () => {
                  openDialogue={openDialogBox}
                  displayName={currentUser.displayName}
                  />
-                <FeedsContainer/>
+                 {
+                    postsArray.map((post)=><Post key={post.postID} post={post}/>)
+                 }
             </div>
             <div className='child contacts-container'>
             <ContactsList />

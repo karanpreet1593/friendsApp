@@ -9,8 +9,9 @@ const Post = ({post}) => {
                     src={post.photoURL}
                     alt="profile-pic-icon"
                     />
-                </div>
                 <h4>{`${post.username}`}</h4>
+                </div>
+                <span>{`${post.createdAt}`}</span>
             </div>
             <p>{post.post}</p>
         </div>
