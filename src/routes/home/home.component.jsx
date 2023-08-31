@@ -9,6 +9,7 @@ import { PostsContext } from '../../context/posts.context';
 import { useContext } from 'react'
 import ContactsList from '../../components/contacts-list/contacts-list-component';
 import Post from '../../components/post/post.component';
+import PostDetail from '../../components/post-detail-dialog/post-detail.component';
 
 const Home = () => {
     const {currentUser} = useContext(userContext)
@@ -22,7 +23,7 @@ const Home = () => {
      const openDialogBox = () => {
         handleDisplay(true);
      };
-     const dialogStyle = {
+     const dialogTitleStyle = {
         padding: "20px",
         paddingLeft: "190px",
         paddingBottom: "0px",
@@ -36,7 +37,7 @@ const Home = () => {
             </div>
             <div className='middle-container'>
                 <Dialog onClose = {handleClose} open = {openDialog}>
-                    <DialogTitle style={dialogStyle}> Create Post </DialogTitle>
+                    <DialogTitle style={dialogTitleStyle}> Create Post </DialogTitle>
                     <CreatePostDialog currentUser={currentUser} closeDialog={handleClose}/>
                 </Dialog>
                 <PostDialogue
@@ -44,7 +45,7 @@ const Home = () => {
                  displayName={currentUser.displayName}
                  />
                  {
-                    postsArray.map((post)=><Post key={post.postID} post={post}/>)
+                    postsArray.map((post)=><Post key={post.postID} post={post} />)
                  }
             </div>
             <div className='child contacts-container'>

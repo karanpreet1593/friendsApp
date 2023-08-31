@@ -76,6 +76,8 @@ const firebaseConfig = {
     const userID = userAuth.uid
     const username = userAuth.displayName
     const photoURL = userAuth.photoURL
+    const whoLikedArray = []
+    const comments = []
     
     const userPostDocRef = doc(db, 'users', userID, 'posts', `${postID}`)
     const userPostSnapshot = await getDoc(userPostDocRef)
@@ -92,7 +94,9 @@ const firebaseConfig = {
                 postID,
                 userID,
                 username,
-                photoURL
+                photoURL,
+                whoLikedArray,
+                comments
             })
 
             await setDoc(postDocRef, {
@@ -101,7 +105,9 @@ const firebaseConfig = {
               postID,
               userID,
               username,
-              photoURL
+              photoURL,
+              whoLikedArray,
+              comments
           })
 
         } catch(error) {

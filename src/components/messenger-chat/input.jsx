@@ -75,6 +75,11 @@ const Input = () => {
     setText("");
     setImg(null);
   };
+
+  const handleKey = (e) => {
+    e.code === "Enter" && handleSend();
+  };
+  
   return (
     <div className="chat-input-container">
       <input
@@ -82,6 +87,7 @@ const Input = () => {
         placeholder="Type something..."
         onChange={(e) => setText(e.target.value)}
         value={text}
+        onKeyDown={handleKey}
       />
       <div className="send">
         <img src={Attach} alt="" />

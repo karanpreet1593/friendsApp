@@ -35,7 +35,6 @@ export const PostsProvider = ({ children }) => {
         })
         
         setpostsArray(posts.reverse());
-        console.log(posts.length)
       });
 
       return () => {unsub();};
