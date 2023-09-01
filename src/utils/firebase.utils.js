@@ -15,9 +15,9 @@ import {
     collection,
     query,
     getDocs,
-    onSnapshot
+    deleteDoc,
 } from 'firebase/firestore'
-import { getStorage } from "firebase/storage";
+import { getStorage, ref, deleteObject } from "firebase/storage";
 
 const firebaseConfig = {
     apiKey: "AIzaSyAlzMb6Nd7x4LTeUhJxldpj16HRXy9eUyc",
@@ -66,9 +66,11 @@ const firebaseConfig = {
     return userDocRef
   }
 
-  export const addUserPostDoc=  async (
+  export const addUserPostDoc = async (
     userAuth,
-    post
+    post,
+    postImageURL = null,
+    postImageStorageRefrence = null
     ) => {
     if (!userAuth || !post.length) return;
 
@@ -96,7 +98,9 @@ const firebaseConfig = {
                 username,
                 photoURL,
                 whoLikedArray,
-                comments
+                comments,
+                postImageURL,
+                postImageStorageRefrence
             })
 
             await setDoc(postDocRef, {
@@ -107,7 +111,9 @@ const firebaseConfig = {
               username,
               photoURL,
               whoLikedArray,
-              comments
+              comments,
+              postImageURL,
+              postImageStorageRefrence
           })
 
         } catch(error) {
@@ -116,6 +122,30 @@ const firebaseConfig = {
     }
 
     return [userPostDocRef, postDocRef]
+  }
+
+  export const deletePostDoc = async (
+    postID,
+    userID,
+    postImageStorageRefrence
+  ) => {
+    const postDocRef = doc(db, 'posts', `${postID}`)
+    const userPostDocRef = doc(db, 'users', userID, 'posts', `${postID}`)
+    const postImageRef = ref(storage, postImageStorageRefrence);
+
+    try {
+        await deleteDoc(postDocRef)
+        await deleteDoc(userPostDocRef)
+  
+        deleteObject(postImageRef).then(() => {
+          console.log("Filete deleted Successfully")
+        }).catch((error) => {
+          console.log("ErrorOccured while deleting storage file")
+        });
+
+    } catch (error) {
+      console.log('error deleting post', error.message)
+    }
   }
 
   export const getPostsAndDocuments = async () => {

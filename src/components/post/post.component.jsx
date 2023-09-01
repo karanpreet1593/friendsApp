@@ -8,6 +8,8 @@ import { doc, updateDoc, arrayUnion, arrayRemove, onSnapshot } from "firebase/fi
 import { db } from '../../utils/firebase.utils'
 import Dialog from "@mui/material/Dialog";
 import PostDetail from '../post-detail-dialog/post-detail.component'
+import closeBtnImg from '../../assets/close.png'
+import { deletePostDoc } from '../../utils/firebase.utils'
 
 
 const Post = ({post}) => {
@@ -16,7 +18,6 @@ const Post = ({post}) => {
     const [currentPost, setcurrentPost] = useState('false')
     const hasCurentUserLikedThisPost = post.whoLikedArray.includes(currentUser.displayName)
     const [isLiked, setIsLiked] = useState(hasCurentUserLikedThisPost)
-
     const [openDialog, handleDisplay] = useState(false);
 
     const openDialogBox = () => {
@@ -68,10 +69,13 @@ const Post = ({post}) => {
          }
     }
 
+    const handlePostDelete = async () => {
+        await deletePostDoc(post.postID, currentUser.uid, post.postImageStorageRefrence)
+    }
 
     return(
         <div className="post-container">
-            <Dialog maxWidth='xl'onClose = {handleClose} open = {openDialog} >
+            <Dialog maxWidth='xl' onClose = {handleClose} open = {openDialog} >
                 <PostDetail 
                 isLiked = {isLiked}
                 currentUser={currentUser}
@@ -84,13 +88,19 @@ const Post = ({post}) => {
                     src={post.photoURL}
                     alt="profile-pic-icon"
                     />
-                <h4>{`${post.username}`}</h4>
+                    <h4>{`${post.username}`}</h4>
                 </div>
                 <span>{`${post.createdAt}`}</span>
+                {post.userID === currentUser.uid &&
+                     <div onClick={handlePostDelete}
+                        className='post-delete-btn' >
+                        <img src={closeBtnImg} alt='' />
+                     </div>}
             </div>
-            <div className='post-image'>
-                <img src='https://i1.sndcdn.com/artworks-1SJAz50WjyGtaCtb-aTf1VQ-t240x240.jpg' alt=''/>
-            </div>
+            {post.postImageURL &&
+                <div className='post-image'>
+                <img src={post.postImageURL} alt=''/>
+                </div>}
             <div className='post-content'>
             <p>{post.post}</p>
             </div>

@@ -33,7 +33,6 @@ const Home = () => {
     return(
         <div className="home-container">
             <div className='child shortcuts-container'>
-                Shortcuts
             </div>
             <div className='middle-container'>
                 <Dialog onClose = {handleClose} open = {openDialog}>

@@ -31,7 +31,7 @@ const Input = () => {
 
       uploadTask.on(
         (error) => {
-          //TODO:Handle Error
+          console.log('error uploading image in chat ',error)
         },
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
@@ -100,7 +100,7 @@ const Input = () => {
         <label htmlFor="file">
           <img src={Img} alt="" />
         </label>
-        <button onClick={handleSend}><img src={Send} /></button>
+        <button onClick={handleSend}><img src={Send} alt="" /></button>
       </div>
     </div>
   );

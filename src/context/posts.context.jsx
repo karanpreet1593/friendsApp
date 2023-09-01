@@ -33,7 +33,6 @@ export const PostsProvider = ({ children }) => {
         querySnapshot.docs.forEach((doc)=>{
           posts.push(doc.data())
         })
-        
         setpostsArray(posts.reverse());
       });
 

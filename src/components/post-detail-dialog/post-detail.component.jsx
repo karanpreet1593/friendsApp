@@ -25,17 +25,18 @@ const PostDetail = ({post, isLiked, handleLike, currentUser}) => {
     const handleCommentSend = async () => { 
         const postCommentRef = doc(db, "posts", `${post.postID}`);
         const userPostCommentRef = doc(db, "users",`${post.userID}`,"posts",`${post.postID}`);
+        const commentID = uuid()
         try {
                await updateDoc(postCommentRef, {
                    comments: arrayUnion({
-                    id: uuid(),
+                    id: commentID,
                     commentContent: commentInputText ,
                     username: currentUser.displayName,
                     usernamePhotoURL: currentUser.photoURL
                    })
                });
                await updateDoc(userPostCommentRef, {
-                    id: uuid(),
+                    id: commentID,
                     comments: arrayUnion({
                     commentContent: commentInputText ,
                     username: currentUser.displayName,
@@ -67,9 +68,10 @@ const PostDetail = ({post, isLiked, handleLike, currentUser}) => {
                     </div>
                     <span>{`${post.createdAt}`}</span>
                 </div>
-                <div className='postDetailBody-image'>
-                    <img src='https://i1.sndcdn.com/artworks-1SJAz50WjyGtaCtb-aTf1VQ-t240x240.jpg' alt=''/>
-                </div>
+                {post.postImageURL &&
+                    <div className='postDetailBody-image'>
+                    <img src={post.postImageURL} alt=''/>
+                    </div>}
                 <div className='postDetailBody-content'>
                 <p>{post.post}</p>
                 </div>
@@ -99,7 +101,7 @@ const PostDetail = ({post, isLiked, handleLike, currentUser}) => {
                 </div>
                 <div className='postDetailBody-allComments'>
                     {post.comments.map((comment) => (
-                        <Comment comment={comment}/>
+                        <Comment key={comment.id} comment={comment}/>
                     ))}
                 </div>
             </div>
